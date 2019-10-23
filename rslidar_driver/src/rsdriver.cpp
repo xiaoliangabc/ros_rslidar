@@ -279,7 +279,7 @@ bool rslidarDriver::poll(void)
 
   // publish message using time of last packet read
 //  ROS_DEBUG("[driver] Publishing a full rslidar scan.");
-  scan->header.stamp = scan->packets.back().stamp;
+  scan->header.stamp = scan->packets.front().stamp;
   scan->header.frame_id = config_.frame_id;
   msop_output_.publish(scan);
 

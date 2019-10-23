@@ -1,35 +1,39 @@
 <launch>
-<group ns="ns1">
+<group ns="rs16left">
   <node  name="rslidar_node" pkg="rslidar_driver" type="rslidar_node" output="screen" >
     <param name="model" value="RS16"/>
     <!--param name="pcap" value="/home/tony-sti/lidar_data/lm75-170616-roadtest.pcap"/ -->
-    <param name="device_ip" value="192.168.1.200" />
+    <param name="device_ip" value="192.168.3.200" />
     <param name="msop_port" value="6699"/>
     <param name="difop_port" value="7788"/>
   </node>
 
   <node  name="cloud_node" pkg="rslidar_pointcloud" type="cloud_node" output="screen" >
     <param name="model" value="RS16"/>
-    <param name="curves_path" value="$(find rslidar_pointcloud)/data/lidar1/curves.csv" />
-    <param name="angle_path" value="$(find rslidar_pointcloud)/data/lidar1/angle.csv" />
-    <param name="channel_path" value="$(find rslidar_pointcloud)/data/lidar1/ChannelNum.csv" />
+    <param name="curves_path" value="$(find rslidar_pointcloud)/data/lidarleft/curves.csv" />
+    <param name="angle_path" value="$(find rslidar_pointcloud)/data/lidarleft/angle.csv" />
+    <param name="channel_path" value="$(find rslidar_pointcloud)/data/lidarleft/ChannelNum.csv" />
+    <param name="start_angle" value="180" />
+    <param name="end_angle" value="360" />
   </node>
 </group>
 
-<group ns="ns2">
+<group ns="rs16right">
   <node  name="rslidar_node" pkg="rslidar_driver" type="rslidar_node" output="screen" >
     <param name="model" value="RS16"/>
     <!--param name="pcap" value="/home/tony-sti/lidar_data/lm75-170616-roadtest.pcap"/ -->
-    <param name="device_ip" value="192.168.1.201"/>
+    <param name="device_ip" value="192.168.4.200"/>
     <param name="msop_port" value="9966"/>
     <param name="difop_port" value="8877"/>
   </node>
 	
   <node  name="cloud_node" pkg="rslidar_pointcloud" type="cloud_node" output="screen" >
     <param name="model" value="RS16"/>
-    <param name="curves_path" value="$(find rslidar_pointcloud)/data/lidar2/curves.csv" />
-    <param name="angle_path" value="$(find rslidar_pointcloud)/data/lidar2/angle.csv" />
-    <param name="channel_path" value="$(find rslidar_pointcloud)/data/lidar2/ChannelNum.csv" />
+    <param name="curves_path" value="$(find rslidar_pointcloud)/data/lidarright/curves.csv" />
+    <param name="angle_path" value="$(find rslidar_pointcloud)/data/lidarright/angle.csv" />
+    <param name="channel_path" value="$(find rslidar_pointcloud)/data/lidarright/ChannelNum.csv" />
+    <param name="start_angle" value="0" />
+    <param name="end_angle" value="180" />
   </node>
 </group>
 </launch>
