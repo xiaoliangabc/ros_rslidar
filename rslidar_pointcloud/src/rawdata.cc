@@ -933,8 +933,8 @@ void RawData::unpack(const rslidar_msgs::rslidarPacket& pkt, pcl::PointCloud<pcl
           point.intensity = static_cast<int>(intensity);
           int sequence_index = block + BLOCKS_PER_PACKET * firing;
           int data_index = dsr;
-          point.timestamp = pkt.stamp.toSec() + 50 * 1e-6 * (sequence_index -1) + 3 * 1e-6 * (data_index-1);
-          point.ring = data_index - 1;
+          point.timestamp = pkt.stamp.toSec() + 50 * 1e-6 * sequence_index + 3 * 1e-6 * data_index;
+          point.ring = data_index;
           pointcloud->at(2 * this->block_num + firing, dsr) = point;
         }
       }

@@ -13,8 +13,6 @@
     <param name="curves_path" value="$(find rslidar_pointcloud)/data/lidarleft/curves.csv" />
     <param name="angle_path" value="$(find rslidar_pointcloud)/data/lidarleft/angle.csv" />
     <param name="channel_path" value="$(find rslidar_pointcloud)/data/lidarleft/ChannelNum.csv" />
-    <param name="start_angle" value="180" />
-    <param name="end_angle" value="360" />
   </node>
 </group>
 
@@ -32,8 +30,6 @@
     <param name="curves_path" value="$(find rslidar_pointcloud)/data/lidarright/curves.csv" />
     <param name="angle_path" value="$(find rslidar_pointcloud)/data/lidarright/angle.csv" />
     <param name="channel_path" value="$(find rslidar_pointcloud)/data/lidarright/ChannelNum.csv" />
-    <param name="start_angle" value="0" />
-    <param name="end_angle" value="180" />
   </node>
 </group>
 </launch>

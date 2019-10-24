@@ -230,6 +230,24 @@ int InputSocket::getPacket(rslidar_msgs::rslidarPacket* pkt, const double time_o
   double time2 = ros::Time::now().toSec();
   pkt->stamp = ros::Time((time2 + time1) / 2.0 + time_offset);
 
+  // decoder utc time
+  struct tm utc_time;
+  memset(&utc_time, 0, sizeof(utc_time));
+  // UTC's year only include 0 - 99 year , which indicate 2000 to 2099.
+  // and mktime's year start from 1900 which is 0. so we need add 100 year.
+  utc_time.tm_year = (pkt->data[20] & 0xff) + 100;
+  // UTC's month start from 1, but mktime only accept month from 0.
+  utc_time.tm_mon = (pkt->data[21] & 0xff) - 1;
+  utc_time.tm_mday = pkt->data[22] & 0xff;
+  utc_time.tm_hour = pkt->data[23] & 0xff;
+  utc_time.tm_min = pkt->data[24] & 0xff;
+  utc_time.tm_sec = pkt->data[25] & 0xff;
+  int utc_ms = (pkt->data[26] & 0xff) << 8 | (pkt->data[27] & 0xff);
+  int utc_us = (pkt->data[28] & 0xff) << 8 | (pkt->data[29] & 0xff);
+  double utc_second = static_cast<double>(mktime(&utc_time));
+  double stamp = (utc_second + 8 * 3600 + 1 + (static_cast<double>(utc_ms * 1000 + utc_us)) / 1000000.0);
+  pkt->stamp = ros::Time(stamp);
+
   return 0;
 }
 
